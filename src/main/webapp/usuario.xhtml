@@ -1,0 +1,175 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title>Insertar Clientes</title>
+</h:head>
+<h:body style="font-size: x-small;>
+
+	<h:form id="registro" prependId="false">
+
+		<h:panelGrid columns="1" cellpadding="5" id="panel" style="width:100%">
+
+			<h:panelGroup style="display:block; text-align:center;">
+
+				<p:commandButton value="REGISTRAR USUARIO" update=":registro"
+					immediate="true" oncomplete="PF('dlg2').show()">
+					<p:resetInput target=":registro" />
+				</p:commandButton>
+
+			</h:panelGroup>
+		</h:panelGrid>
+
+		<p:dialog header="REGISTRAR USUARIO" widgetVar="dlg2" modal="true"
+			height="100%">
+
+
+			<h:panelGrid id="panel6" columns="3">
+
+				<h:outputLabel for="nombre" value="Nombre: " />
+				<p:inputText id="nombre" required="true" label="Nombre"
+					value="#{usuarioBean.usuario.nombres}">
+				</p:inputText>
+				<p:message for="nombre" />
+
+				<h:outputLabel for="apePaterno" value="Apellido Paterno: " />
+				<p:inputText id="apePaterno" label="Apellido Paterno"
+					value="#{usuarioBean.usuario.apellidoPaterno}" required="true" />
+				<p:message for="apePaterno" />
+
+				<h:outputLabel for="apeMaterno" value="Apellido Materno: " />
+				<p:inputText id="apeMaterno" label="Apellido Materno"
+					value="#{usuarioBean.usuario.apellidoMaterno}" />
+				<p:message for="apeMaterno" />
+
+				<h:outputLabel for="nombreUsuario" value="Nombre Usuario: " />
+				<p:inputText id="nombreUsuario" label="Nombre Usuario"
+					value="#{usuarioBean.usuario.nombreUsuario}" />
+				<p:message for="nombreUsuario" />
+
+				<h:outputLabel for="password" value="Password: " />
+				<p:inputText id="password" label="Password"
+					value="#{usuarioBean.usuario.password}" />
+				<p:message for="password" />
+
+				<h:outputLabel for="administrador" value="Administrador: " />
+				<p:inputText id="administrador" label="Administrador"
+					value="#{usuarioBean.usuario.administrador}" />
+				<p:message for="administrador" />
+
+
+			</h:panelGrid>
+
+			<p:panelGrid style="width:100%; text-align: center; background: red;"
+				columns="2">
+
+				<p:commandButton id="enviar" value="REGISTRAR"
+					action="#{usuarioBean.registrarUsuario}"
+					onstart="Bloquear('enviar');"
+					onsuccess="Desbloquear('enviar');PF('dlg2').hide()"
+					oncomplete="ActualizarLista()" validateClient="true" />
+
+				<p:commandButton type="button" value="CANCELAR"
+					onclick="PF('dlg2').hide()" />
+
+
+			</p:panelGrid>
+
+		</p:dialog>
+
+
+	</h:form>
+
+
+	<h:form id="lista" prependId="false">
+
+		<p:remoteCommand name="ActualizarLista" update="lista" />
+
+		<p:dataTable value="#{usuarioBean.usuarios}" var="us" editable="true">
+			<f:facet name="header">
+				Lista de Productos
+			</f:facet>
+			<p:column headerText="Codigo">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{us.idUsuarios}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{us.idUsuarios}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="apellidoMaterno">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{us.apellidoMaterno}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{us.apellidoMaterno}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="apellidoPaterno">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{us.apellidoPaterno}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{us.apellidoPaterno}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<p:column headerText="Nombres">
+				<p:cellEditor>
+					<f:facet name="output">
+						<h:outputText value="#{us.nombres}" />
+					</f:facet>
+					<f:facet name="input">
+						<p:inputText value="#{us.nombres}" />
+					</f:facet>
+				</p:cellEditor>
+			</p:column>
+			<f:facet name="footer">
+				<h:commandButton value="Regresar" action="index" />
+			</f:facet>
+			<p:column headerText="Opciones" style="width:50px">
+				<p:rowEditor />
+			</p:column>
+			<p:ajax event="rowEdit" listener="#{usuarioBean.editListener}">
+			</p:ajax>
+		</p:dataTable>
+	</h:form>
+
+	<script type="text/javascript">
+
+		function Bloquear(button) {
+
+			document.getElementById(button).disabled = true;
+
+		}
+		function Desbloquear(button) {
+
+			document.getElementById(button).disabled = false;
+		}
+		function limpiar() {
+
+			document.getElementById("sexo_input").selectedIndex = 1;
+			document.getElementById('pais_input').selectedIndex = 1;
+		}
+
+		function limpiarEventos() {
+
+			document.getElementById('registroEvento').unselectAllRows();
+		}
+
+		function Inicio() {
+			document.getElementById("tablaEventos").style.display = "none";
+		}
+	</script>
+
+</h:body>
+</html>

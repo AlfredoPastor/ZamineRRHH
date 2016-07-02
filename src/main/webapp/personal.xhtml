@@ -1,0 +1,467 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+</h:head>
+<h:body style="font-size: x-small;">
+
+
+
+
+	<p:layout fullPage="true">
+
+		<p:layoutUnit position="north" size="50">
+
+			<div style="width: 100%;">
+				<div
+					style="width: 50%; position: absolute; left: 0px; text-align: left;">
+					<p:graphicImage name="images/zamine.gif" width="100" height="45"
+						style="margin-left:10px; margin-top: auto;" />
+				</div>
+				<div style="margin-left: 50%; text-align: right;">
+					<h:form>
+						<p:commandButton value="CERRAR SESION"
+							style="margin-top:10px;margin-right:10px;" />
+					</h:form>
+				</div>
+			</div>
+
+		</p:layoutUnit>
+
+		<p:layoutUnit position="west" size="200" header="MENU PRINCIPAL"
+			resizable="true" collapsible="true">
+
+			<h:form>
+
+				<p:panelGrid columns="1" style="margin: 5px auto;width:100%;">
+					<p:commandButton value="BUSQUEDA TRABAJADOR"
+						styleClass="ui-priority-primary" />
+					<p:commandButton value="CREAR TRABAJADOR"
+						styleClass="ui-priority-primary" />
+					<p:commandButton value="REPORTES" styleClass="ui-priority-primary" />
+					<p:commandButton value="PARAMETROS"
+						styleClass="ui-priority-primary" />
+					<p:commandButton value="ALERTAS" styleClass="ui-priority-primary" />
+					<p:commandButton value="USUARIOS" styleClass="ui-priority-primary" />
+
+				</p:panelGrid>
+
+			</h:form>
+		</p:layoutUnit>
+
+		<p:layoutUnit position="center">
+			<p:tabView>
+				<p:tab title="TRABAJADOR">
+					<h:panelGrid columns="2" width="100%">
+						<h:form>
+
+							<p:panel header="DATOS BASICOS DEL TRABAJADOR"
+								style="height:300px;">
+
+								<div style="width: 100%;">
+
+									<div style="width: 700px; position: absolute;">
+
+										<div style="width: 300px; position: absolute; border: solid;">
+
+											<p:growl widgetVar="growlWV" />
+
+											<p:panelGrid columns="2">
+
+												<p:outputLabel for="nombre" value="NOMBRE: " />
+												<p:inputText id="nombre" />
+
+												<p:outputLabel for="apellidoPaterno"
+													value="APELLIDO PATERNO: " />
+												<p:inputText id="apellidoPaterno" />
+
+												<p:outputLabel for="apellidoMaterno"
+													value="APELLIDO MATERNO: " />
+												<p:inputText id="apellidoMaterno" />
+
+												<p:outputLabel for="estado" value="ESTADO: " />
+												<p:inputText id="estado" />
+
+												<p:outputLabel for="fechaIngreso" value="FECHA INGRESO: " />
+												<p:inputText id="fechaIngreso" value="" >
+												
+												
+												<p:ajax listener="" event="" update=""/>
+												</p:inputText>
+
+												<p:outputLabel for="tipoDocumentoIdentidad"
+													value="TIPO DOCUMENTO: " />
+												<p:inputText id="tipoDocumentoIdentidad" />
+
+												<p:outputLabel for="numeroDocumento"
+													value="NUMERO DOCUMENTO: " />
+												<p:inputText id="numeroDocumento" onkeyup="ValidaNumero(this.id);" />
+
+												<p:outputLabel for="fechaNacimiento"
+													value="FECHA NACIMIENTO: " />
+												<p:inputText id="fechaNacimiento" />
+
+											</p:panelGrid>
+
+
+
+										</div>
+
+										<div
+											style="width: 300px; position: absolute; border: solid; left: 350px;">
+
+											<p:panelGrid columns="2">
+
+												<p:outputLabel for="lugarNacimiento"
+													value="LUGAR NACIMIENTO: " />
+												<p:inputText id="lugarNacimiento" />
+
+												<p:outputLabel for="sexo" value="SEXO: " />
+												<p:inputText id="sexo" />
+
+												<p:outputLabel for="direccion" value="DIRECCION: " />
+												<p:inputText id="direccion" />
+
+												<p:outputLabel for="estadoCivil" value="ESTADO CIVIL: " />
+												<p:inputText id="estadoCivil" />
+
+												<p:outputLabel for="tipoLicencia" value="TIPO DE LICENCIA: " />
+												<p:inputText id="tipoLicencia" />
+
+												<p:outputLabel for="numeroLicencia"
+													value="NUMERO LICENCIA: " />
+												<p:inputText id="numeroLicencia" />
+
+												<p:outputLabel for="grupoSanguineo"
+													value="GRUPO SANGUINEO: " />
+												<p:inputText id="grupoSanguineo" />
+
+												<p:outputLabel for="fotocheck" value="FOTOCHEK: " />
+												<p:inputText id="fotocheck" />
+
+											</p:panelGrid>
+
+										</div>
+
+
+									</div>
+
+
+
+									<div
+										style="position: absolute; right: 30px; width: 200px; height: 260px; border: double;">
+
+										<div style="position: relative; height: 100%; width: 100%;">
+
+											<div
+												style="position: absolute; width: 100%; height: 190px; border: solid;">
+
+												<p:remoteCommand name="Cargado" update="photo" />
+
+												<p:outputPanel id="photo" style="width:250; height:190;">
+													<p:graphicImage width="250" height="190"
+														name="images/photocam/#{trabajadorBean.filename}"
+														rendered="#{not empty trabajadorBean.filename}" />
+												</p:outputPanel>
+
+												<p:dialog widgetVar="dlgFoto" modal="true" height="100%"
+													appendTo="@(body)">
+
+													<p:panelGrid id="cam" columns="1">
+
+														<p:photoCam widgetVar="pc"
+															rendered="#{trabajadorBean.flag}"
+															listener="#{trabajadorBean.oncapture}" update="photo"
+															width="800" height="600" />
+
+														<p:commandButton value="CAPTURAR"
+															onclick="PF('pc').capture()"
+															oncomplete="PF('dlgFoto').hide(); Webcam.reset();"
+															action="#{trabajadorBean.habilitarCamara}" />
+
+													</p:panelGrid>
+
+												</p:dialog>
+
+											</div>
+											<div
+												style="position: absolute; width: 100%; height: 60px; border: solid; bottom: 0px;">
+
+												<p:panelGrid columns="2">
+
+													<p:commandButton value="TOMAR FOTO"
+														action="#{trabajadorBean.habilitarCamara}"
+														oncomplete="PF('dlgFoto').show()" update="cam" />
+
+													<h:form enctype="multipart/form-data">
+
+														<p:fileUpload
+															fileUploadListener="#{trabajadorBean.upload}"
+															mode="advanced" update="messages" auto="true"
+															sizeLimit="52428800"
+															allowTypes="/(\.|\/)(gif|jpeg|png|doc|docx|pdf|xls|xlsx)$/"
+															label="CARGAR" oncomplete="Cargado()" />
+
+														<p:growl id="messages" showDetail="true" />
+
+													</h:form>
+
+												</p:panelGrid>
+
+											</div>
+
+										</div>
+
+
+
+
+									</div>
+
+								</div>
+
+							</p:panel>
+
+						</h:form>
+					</h:panelGrid>
+
+					<p:blockUI widgetVar="BUI" block="tabs">
+						CARGANDO...
+						<p:graphicImage name="images/loading.gif" />
+					</p:blockUI>
+
+					<p:tabView id="tabs" scrollable="true" dynamic="true" cache="false">
+
+
+						<p:ajax event="tabChange" listener="#{trabajadorBean.onTabChange}"
+							onstart="PF('BUI').show()" oncomplete="sss();" />
+
+
+						<p:tab title="INF. ACADEMICA" id="tab1">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="The story begins as Don Vito Corleone..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="EXPERIENCIA LABORABLE" id="tab2">
+
+							<h:form id="jeje">
+
+								<p:remoteCommand name="sss" oncomplete="PF('BUI').hide();"
+									update="jeje" />
+
+								<p:panel rendered="#{trabajadorBean.flagTab2}" id="eje2">
+
+									<h:panelGrid columns="2" cellpadding="10">
+										<p:graphicImage name="images/9520701.jpg" width="300"
+											height="200" />
+										<p:graphicImage name="images/9520702.jpg" width="300"
+											height="200" />
+
+										<p:dataTable id="dd" var="tra"
+											value="#{trabajadorBean.trabajadores}"
+											emptyMessage="No existen datos por mostrar"
+											rowKey="#{tra.idTrabajador}">
+
+											<p:column selectionMode="single"
+												style="width:16px;text-align:center" />
+
+											<p:column headerText="NOMBRE" filterBy="#{tra.nombres}">
+												<h:outputText value="#{tra.nombres}" />
+											</p:column>
+
+											<p:column headerText="APE. PATER."
+												filterBy="#{tra.apellidoPaterno}">
+												<h:outputText value="#{tra.apellidoPaterno}" />
+											</p:column>
+
+											<p:column headerText="APE. MATER."
+												filterBy="#{tra.apellidoMaterno}">
+												<h:outputText value="#{tra.apellidoMaterno}" />
+											</p:column>
+
+											<p:column headerText="DNI"
+												filterBy="#{tra.NumeroDocIdentidad}">
+												<h:outputText value="#{tra.numeroDocIdentidad}" />
+											</p:column>
+
+											<!-- 		<p:column style="width:30px">
+							<p:rowEditor />
+						</p:column>
+
+						<p:ajax event="rowEdit" listener="#{trabajadorBean.editListener}" />
+
+						<p:column headerText="" style="width:30px">
+
+							<p:commandButton icon="ui-icon-trash"
+								actionListener="#{trabajadorBean.eliminarTrabajador(tra)}"
+								onstart="return confirm('Estas seguro de eliminar este TRABAJADOR?')">
+							</p:commandButton>
+
+						</p:column>
+						
+						 -->
+
+										</p:dataTable>
+									</h:panelGrid>
+
+								</p:panel>
+
+							</h:form>
+
+
+						</p:tab>
+						<p:tab title="DERECHO HABIENTES" id="tab3">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="HIST. CONTRATOS" id="tab4">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="PLANILLA">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="UBIGEO">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="CONTACTO">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="ARCHIVOS ADJUNTOS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="EXAMENES MEDICOS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="CUENTAS BANCARIAS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="SIST. PENSIONES">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="AMONESTACIONES">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="RECONOCIMIENTOS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="CAPACITACIONES">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="DESCANSOS MEDICOS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="PRESTAMOS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="DESCUENTOS JUDICIALES">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="DESCUENTOS">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+						<p:tab title="AUTORIZACIONES">
+							<h:panelGrid columns="2" cellpadding="10">
+								<p:graphicImage name="images/zamine.gif" />
+								<h:outputText value="After a break of more than 15 years..." />
+							</h:panelGrid>
+						</p:tab>
+
+					</p:tabView>
+
+
+				</p:tab>
+				<p:tab title="CONTROL DE ASISTENCIAS">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage name="images/zamine.gif" />
+						<h:outputText value="Francis Ford Coppola's legendary..." />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="VACACIONES">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage name="images/zamine.gif" />
+						<h:outputText value="After a break of more than 15 years..." />
+					</h:panelGrid>
+				</p:tab>
+				<p:tab title="ACREDITACION DE PAGOS">
+					<h:panelGrid columns="2" cellpadding="10">
+						<p:graphicImage name="images/zamine.gif" />
+						<h:outputText value="After a break of more than 15 years..." />
+					</h:panelGrid>
+				</p:tab>
+			</p:tabView>
+
+		</p:layoutUnit>
+
+	</p:layout>
+
+
+
+
+
+
+
+	<script type="text/javascript">
+		function ValidaNumero(id) {
+			
+			if(isNaN(document.getElementById(id).value)){
+				
+				PF('growlWV').renderMessage({'summary' : 'Error de campo','detail' : 'El valor debe ser un numero entero positivo!','severity' : 'error'});
+				
+			}
+
+		}
+	</script>
+
+</h:body>
+
+</html>

@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0" 
+	xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+	<persistence-unit name="ZaminePU" transaction-type="JTA">
+		<jta-data-source>jdbc/ZamineDb</jta-data-source>
+		<class>zamine.com.domain.Afp</class>
+		<class>zamine.com.domain.Amonestacionreconocimiento</class>
+		<class>zamine.com.domain.Area</class>
+		<class>zamine.com.domain.Asistencia</class>
+		<class>zamine.com.domain.Autorizacion</class>
+		<class>zamine.com.domain.Capacitacion</class>
+		<class>zamine.com.domain.Categoriadiagnostico</class>
+		<class>zamine.com.domain.Clinica</class>
+		<class>zamine.com.domain.Contrato</class>
+		<class>zamine.com.domain.Cuentabancaria</class>
+		<class>zamine.com.domain.Departamento</class>
+		<class>zamine.com.domain.Derechohabiente</class>
+		<class>zamine.com.domain.Descansomedico</class>
+		<class>zamine.com.domain.Descuento</class>
+		<class>zamine.com.domain.Descuentojudicial</class>
+		<class>zamine.com.domain.Distrito</class>
+		<class>zamine.com.domain.Documentoidentidad</class>
+		<class>zamine.com.domain.Entidadbancaria</class>
+		<class>zamine.com.domain.Entidadprestadoraservicio</class>
+		<class>zamine.com.domain.Experiencialaboral</class>
+		<class>zamine.com.domain.Informacionacademica</class>
+		<class>zamine.com.domain.Motivocese</class>
+		<class>zamine.com.domain.Niveljerarquico</class>
+		<class>zamine.com.domain.Pago</class>
+		<class>zamine.com.domain.Parentesco</class>
+		<class>zamine.com.domain.Planilla</class>
+		<class>zamine.com.domain.Prestamo</class>
+		<class>zamine.com.domain.Provincia</class>
+		<class>zamine.com.domain.Puesto</class>
+		<class>zamine.com.domain.Regimenlaboral</class>
+		<class>zamine.com.domain.Regimenpensionario</class>
+		<class>zamine.com.domain.Sistemapension</class>
+		<class>zamine.com.domain.Site</class>
+		<class>zamine.com.domain.Situacioneducativa</class>
+		<class>zamine.com.domain.Situacionespecial</class>
+		<class>zamine.com.domain.Tipoatencion</class>
+		<class>zamine.com.domain.Tipocontrato</class>
+		<class>zamine.com.domain.Tipovia</class>
+		<class>zamine.com.domain.Tipozona</class>
+		<class>zamine.com.domain.Trabajador</class>
+		<class>zamine.com.domain.Usuario</class>
+		<class>zamine.com.domain.Vacacion</class>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.MySQLDialect" />
+		</properties>
+	</persistence-unit>
+</persistence>
