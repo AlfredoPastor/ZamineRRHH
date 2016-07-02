@@ -46,6 +46,8 @@ public class LoginBean implements Serializable {
 	}
 
 	public String login() {
+		
+		
 
 		if (nombre.equals("admin") && clave.equals("admin"))
 			return "personal.xhtml?faces-redirect=true";
